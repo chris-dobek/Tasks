@@ -9,16 +9,24 @@
 import UIKit
 
 class TaskTableViewCell: UITableViewCell {
+    
+    static let reuseIdentifier = "TaskCell"
+    
+    @IBOutlet weak var taskNameLabel: UILabel!
+    @IBOutlet weak var completedButton: UIButton!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var task: Task? {
+        didSet {
+            updateViews()
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    // TODO: Add action for toggling complete button
+    
+    private func updateViews() {
+        guard let task = task else { return }
+        
+        taskNameLabel.text = task.name
+        completedButton.setImage(task.complete ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle"), for: .normal)
     }
-
 }

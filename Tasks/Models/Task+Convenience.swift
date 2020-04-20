@@ -7,3 +7,20 @@
 //
 
 import Foundation
+import CoreData
+
+extension Task {
+    @discardableResult convenience init(identifier: UUID = UUID(),
+                     name: String,
+                     notes: String? = nil,
+                     complete: Bool = false,
+                     context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        
+        // Standard init, does usual init stuff
+        self.init(context: context)
+        self.identifier = identifier
+        self.name = name
+        self.notes = notes
+        self.complete = complete
+    }
+}
