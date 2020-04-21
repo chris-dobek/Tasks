@@ -49,15 +49,20 @@ class TasksTableViewController: UITableViewController {
         return cell
     }
 
-    // TODO: Add support for deleting tasks
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let task = tasks[indexPath.row]
+            CoreDataStack.shared.mainContext.delete(task)
+            do {
+                try CoreDataStack.shared.mainContext.save()
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } catch {
+                CoreDataStack.shared.mainContext.reset()
+                NSLog("Error saving managed object context: \(error)")
+            }
+        }
     }
 
     // MARK: - Navigation

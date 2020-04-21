@@ -9,11 +9,19 @@
 import Foundation
 import CoreData
 
+enum TaskPriority: String, CaseIterable {
+    case low
+    case normal
+    case high
+    case critical
+}
+
 extension Task {
     @discardableResult convenience init(identifier: UUID = UUID(),
                      name: String,
                      notes: String? = nil,
                      complete: Bool = false,
+                     priority: TaskPriority = .normal,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
         // Standard init, does usual init stuff
@@ -22,5 +30,6 @@ extension Task {
         self.name = name
         self.notes = notes
         self.complete = complete
+        self.priority = priority.rawValue
     }
 }

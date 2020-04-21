@@ -34,6 +34,7 @@
 		CEB451B0244E082200E5F9AD /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		CEB451B2244E083B00E5F9AD /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CEB451B4244E085800E5F9AD /* Task+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Convenience.swift"; sourceTree = "<group>"; };
+		CEC6B518244F580900243E61 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,9 +402,10 @@
 		CEB451AB244E002B00E5F9AD /* Tasks.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CEC6B518244F580900243E61 /* Model 2.xcdatamodel */,
 				CEB451AC244E002B00E5F9AD /* Model.xcdatamodel */,
 			);
-			currentVersion = CEB451AC244E002B00E5F9AD /* Model.xcdatamodel */;
+			currentVersion = CEC6B518244F580900243E61 /* Model 2.xcdatamodel */;
 			path = Tasks.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

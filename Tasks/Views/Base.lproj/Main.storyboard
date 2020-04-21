@@ -26,6 +26,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dB0-qA-ADB">
                                             <rect key="frame" x="20" y="11" width="20" height="22"/>
                                             <state key="normal" image="circle" catalog="system"/>
+                                            <connections>
+                                                <action selector="toggleComplete:" destination="ffd-cY-MCb" eventType="touchUpInside" id="fjo-yo-Kj6"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvb-oS-6He">
                                             <rect key="frame" x="48" y="11.5" width="85" height="21"/>

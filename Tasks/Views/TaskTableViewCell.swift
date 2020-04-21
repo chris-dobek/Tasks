@@ -21,6 +21,20 @@ class TaskTableViewCell: UITableViewCell {
         }
     }
     
+    @IBAction func toggleComplete(_ sender: UIButton) {
+        guard let task = task else { return }
+        
+        task.complete.toggle()
+        
+        sender.setImage(task.complete ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle"), for: .normal)
+        
+        do {
+            try CoreDataStack.shared.mainContext.save()
+        } catch {
+            NSLog("Error saving managed object context: \(error)")
+        }
+    }
+    
     // TODO: Add action for toggling complete button
     
     private func updateViews() {
