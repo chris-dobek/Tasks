@@ -30,6 +30,52 @@ class TaskDetailViewController: UIViewController {
         updateViews()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if wasEdited {
+            guard let name = nameTextField.text,
+                !name.isEmpty,
+                let task = task else {
+                    return
+            }
+            
+            let notes = notesTextView.text
+            task.name = name
+            task.notes = notes
+            let priorityIndex = priorityControl.selectedSegmentIndex
+            task.priority = TaskPriority.allCases[priorityIndex].rawValue
+            
+            do {
+                try CoreDataStack.shared.mainContext.save()
+            } catch {
+                NSLog("Error saving managed object context: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - Editing
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing { wasEdited = true }
+        
+        nameTextField.isUserInteractionEnabled = editing
+        notesTextView.isUserInteractionEnabled = editing
+        priorityControl.isUserInteractionEnabled = editing
+        
+        navigationItem.hidesBackButton = editing
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func toggleComplete(_ sender: UIButton) {
+        task?.complete.toggle()
+        wasEdited = true
+        sender.setImage((task?.complete ?? false) ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle"), for: .normal)
+    }
+    
     private func updateViews() {
         nameTextField.text = task?.name
         nameTextField.isUserInteractionEnabled = isEditing

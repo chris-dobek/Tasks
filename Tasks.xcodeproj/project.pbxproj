@@ -19,6 +19,8 @@
 		CEB451B3244E083B00E5F9AD /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB451B2244E083B00E5F9AD /* TaskTableViewCell.swift */; };
 		CEB451B5244E085800E5F9AD /* Task+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB451B4244E085800E5F9AD /* Task+Convenience.swift */; };
 		CEC6B51A244F694800243E61 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC6B519244F694800243E61 /* TaskDetailViewController.swift */; };
+		CEC6B5272450AA4500243E61 /* TaskRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC6B5262450AA4500243E61 /* TaskRepresentation.swift */; };
+		CEC6B5292450AF2B00243E61 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC6B5282450AF2B00243E61 /* TaskController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		CEB451B4244E085800E5F9AD /* Task+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Convenience.swift"; sourceTree = "<group>"; };
 		CEC6B518244F580900243E61 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		CEC6B519244F694800243E61 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		CEC6B5262450AA4500243E61 /* TaskRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepresentation.swift; sourceTree = "<group>"; };
+		CEC6B5282450AF2B00243E61 /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				CEB451B4244E085800E5F9AD /* Task+Convenience.swift */,
+				CEC6B5262450AA4500243E61 /* TaskRepresentation.swift */,
 				CEB451BA244E08CA00E5F9AD /* Core Data */,
+				CEC6B5282450AF2B00243E61 /* TaskController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -204,8 +210,10 @@
 				CEB4519C244DFF8E00E5F9AD /* CreateTaskViewController.swift in Sources */,
 				CEB451B5244E085800E5F9AD /* Task+Convenience.swift in Sources */,
 				CEB45198244DFF8E00E5F9AD /* AppDelegate.swift in Sources */,
+				CEC6B5292450AF2B00243E61 /* TaskController.swift in Sources */,
 				CEB4519A244DFF8E00E5F9AD /* SceneDelegate.swift in Sources */,
 				CEB451AD244E002B00E5F9AD /* Tasks.xcdatamodeld in Sources */,
+				CEC6B5272450AA4500243E61 /* TaskRepresentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -60,7 +60,7 @@
                     <navigationItem key="navigationItem" title="Tasks" id="cp2-R4-DYE">
                         <barButtonItem key="rightBarButtonItem" image="plus.circle" catalog="system" id="wLK-9X-ZUU">
                             <connections>
-                                <segue destination="vK5-2X-Pbz" kind="presentation" modalPresentationStyle="fullScreen" id="Ump-Py-eFp"/>
+                                <segue destination="vK5-2X-Pbz" kind="presentation" identifier="CreateTaskModalSegue" modalPresentationStyle="fullScreen" id="Ump-Py-eFp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -101,6 +101,9 @@
                                                     <constraint firstAttribute="width" constant="30" id="Y7f-Is-xGc"/>
                                                 </constraints>
                                                 <state key="normal" image="circle" catalog="system"/>
+                                                <connections>
+                                                    <action selector="toggleComplete:" destination="MYG-Qz-Ril" eventType="touchUpInside" id="ThI-Ft-Z1f"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
