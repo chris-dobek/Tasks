@@ -47,4 +47,18 @@ extension Task {
         self.complete = complete
         self.priority = priority.rawValue
     }
+    
+    @discardableResult convenience init?(taskRepresentation: TaskRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        guard let priority = TaskPriority(rawValue: taskRepresentation.priority),
+            let identifier = UUID(uuidString: taskRepresentation.identifier) else {
+                return nil
+        }
+        
+        self.init(identifier: identifier,
+                  name: taskRepresentation.name,
+                  notes: taskRepresentation.notes,
+                  complete: taskRepresentation.complete ?? false,
+                  priority: priority,
+                  context: context)
+    }
 }

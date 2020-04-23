@@ -24,6 +24,33 @@ class TaskController {
     
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
     
+    func fetchTasksFromServer(completion: @escaping CompletionHandler = { _ in }) {
+        let requestURL = baseURL.appendingPathExtension("json")
+        
+        URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            if let error = error {
+                NSLog("Error fetching tasks: \(error)")
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned from fetch")
+                completion(.failure(.noData))
+                return
+            }
+            
+            do {
+                let taskRepresentations = Array(try JSONDecoder().decode([String : TaskRepresentation].self, from: data).values)
+                self.updateTasks(with: taskRepresentations)
+                completion(.success(true))
+            } catch {
+                NSLog("Error decoding tasks from server: \(error)")
+                completion(.failure(.noDecode))
+            }
+        }.resume()
+    }
+    
     func sendTaskToServer(task: Task, completion: @escaping CompletionHandler = { _ in }) {
         guard let uuid = task.identifier else {
             completion(.failure(.noIdentifier))
@@ -76,5 +103,41 @@ class TaskController {
             
             completion(.success(true))
         }.resume()
+    }
+    
+    private func updateTasks(with representations: [TaskRepresentation]) {
+        let identifiersToFetch = representations.compactMap { UUID(uuidString: $0.identifier) }
+        let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
+        var tasksToCreate = representationsByID
+        
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
+        
+        let context = CoreDataStack.shared.mainContext
+        
+        do {
+            let existingTasks = try context.fetch(fetchRequest)
+            
+            for task in existingTasks {
+                guard let id = task.identifier,
+                    let representation = representationsByID[id] else { continue }
+                self.update(task: task, with: representation)
+                tasksToCreate.removeValue(forKey: id)
+            }
+            
+            for representation in tasksToCreate.values {
+                
+            }
+        } catch {
+            
+        }
+        
+    }
+    
+    private func update(task: Task, with representation: TaskRepresentation) {
+        task.name = representation.name
+        task.notes = representation.notes
+        task.priority = representation.priority
+        task.complete = representation.complete ?? false
     }
 }
