@@ -23,6 +23,14 @@ class TasksTableViewController: UITableViewController {
         try! frc.performFetch()
         return frc
     }()
+    
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        taskController.fetchTasksFromServer { _ in
+            DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
+            }
+        }
+    }
 
     // MARK: - Table view data source
     

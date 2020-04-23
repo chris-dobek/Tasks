@@ -24,6 +24,10 @@ class TaskController {
     
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
     
+    init() {
+        fetchTasksFromServer()
+    }
+    
     func fetchTasksFromServer(completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseURL.appendingPathExtension("json")
         
@@ -42,7 +46,7 @@ class TaskController {
             
             do {
                 let taskRepresentations = Array(try JSONDecoder().decode([String : TaskRepresentation].self, from: data).values)
-                self.updateTasks(with: taskRepresentations)
+                try self.updateTasks(with: taskRepresentations)
                 completion(.success(true))
             } catch {
                 NSLog("Error decoding tasks from server: \(error)")
@@ -105,7 +109,7 @@ class TaskController {
         }.resume()
     }
     
-    private func updateTasks(with representations: [TaskRepresentation]) {
+    private func updateTasks(with representations: [TaskRepresentation]) throws {
         let identifiersToFetch = representations.compactMap { UUID(uuidString: $0.identifier) }
         let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
         var tasksToCreate = representationsByID
@@ -126,12 +130,13 @@ class TaskController {
             }
             
             for representation in tasksToCreate.values {
-                
+                Task(taskRepresentation: representation)
             }
         } catch {
-            
+            NSLog("Error fetching tasks with UUIDs: \(identifiersToFetch), with error: \(error)")
         }
         
+        try CoreDataStack.shared.mainContext.save()
     }
     
     private func update(task: Task, with representation: TaskRepresentation) {
