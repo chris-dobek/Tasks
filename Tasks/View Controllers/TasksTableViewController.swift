@@ -68,12 +68,14 @@ class TasksTableViewController: UITableViewController {
                     return
                 }
                 
-                CoreDataStack.shared.mainContext.delete(task)
-                do {
-                    try CoreDataStack.shared.mainContext.save()
-                } catch {
-                    CoreDataStack.shared.mainContext.reset()
-                    NSLog("Error saving managed object context: \(error)")
+                DispatchQueue.main.async {
+                    CoreDataStack.shared.mainContext.delete(task)
+                    do {
+                        try CoreDataStack.shared.mainContext.save()
+                    } catch {
+                        CoreDataStack.shared.mainContext.reset()
+                        NSLog("Error saving managed object context: \(error)")
+                    }
                 }
             }
         }
